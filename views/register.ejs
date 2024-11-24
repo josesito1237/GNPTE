@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+    <link rel="stylesheet" href="/css/register.css">
+</head>
+<body>
+    <div class="logo-container">
+        <img src="/img/logo.png" alt="Logo" class="logo">
+    </div>
+    <div class="container">
+        <h2>Registro</h2>
+        <% if (error) { %>
+            <div class="error"><%= error %></div>
+        <% } %>
+        <form action="/register" method="POST">
+            <input type="text" name="nombre" placeholder="Nombre" required>
+            <input type="text" name="apellido_p" placeholder="Apellido Paterno" required>
+            <input type="text" name="apellido_m" placeholder="Apellido Materno" required>
+            <input type="email" id="email" name="email" placeholder="Correo electrónico" required>
+            <input type="password" name="password" placeholder="Contraseña" required>
+            
+            <!-- Nivel de Acceso -->
+            <label for="nivel_acceso">Nivel de Acceso:</label>
+            <select name="nivel_acceso" id="nivel_acceso" required>
+                <option value="estudiante">Estudiante</option>
+                <option value="administrador">Administrador</option>
+            </select> <br> <br>
+            <br> <br>
+            <button type="submit">Registrarse</button>
+        </form>
+        <p>¿Ya tienes cuenta? <a href="/login">Inicia sesión aquí</a></p>
+        <div class="button-container">
+            <a href="/" class="button">Regresar al Inicio</a>
+        </div>
+    </div>
+
+    <script>
+        // Validación del correo electrónico directamente al enviar el formulario
+        document.querySelector('form').onsubmit = function() {
+            const email = document.getElementById('email').value;
+            const regex = /^(.*@gmail\.com|.*@outlook\.com|.*@soycecytem\.mx)$/;
+            if (!regex.test(email)) {
+                alert('Por favor, ingresa un correo válido (gmail, outlook o soycecytem.mx).');
+                return false; // Evita que el formulario se envíe
+            }
+            return true; // Permite que el formulario se envíe
+        };
+    </script>
+</body>
+</html>

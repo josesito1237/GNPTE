@@ -1,0 +1,111 @@
+/* notas.css */
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom, #1cf5d7, #a8e6cf); /* Degradado de fondo */
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+header {
+    background-color: #128e7d; /* Color del encabezado */
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+}
+
+main {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.contenedor {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1200px; /* Limitar el ancho máximo del contenedor */
+}
+
+.formulario-container {
+    flex: 1;
+    margin-right: 20px; /* Espacio entre el formulario y la tabla */
+}
+
+h2 {
+    margin-top: 20px;
+}
+
+.tabla-container {
+    flex: 2; /* La tabla ocupará más espacio */
+}
+
+.tabla-scroll {
+    max-height: 300px; /* Altura máxima para el scroll */
+    overflow-y: auto; /* Scroll vertical */
+    border: 1px solid #ddd; /* Bordes para la tabla */
+    border-radius: 5px; /* Bordes redondeados */
+    background-color: white; /* Fondo blanco para la tabla */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+th {
+    background-color: #128e7d; /* Color del encabezado de la tabla */
+    color: white; /* Color del texto en el encabezado */
+}
+
+footer {
+    text-align: center;
+    padding: 10px 0;
+    background-color: #128e7d; /* Color del pie de página */
+    color: white;
+}
+
+button {
+    background-color: #4CAF50; /* Color del botón */
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049; /* Color del botón al pasar el mouse */
+}
+
+.formulario {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px; /* Espacio debajo del formulario */
+}
+
+.formulario input,
+.formulario textarea,
+.formulario button {
+    margin-bottom: 10px; /* Espacio entre los elementos del formulario */
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px; /* Bordes redondeados para los campos */
+}
+
+.formulario button {
+    background-color: #4CAF50; /* Color del botón */
+    color: white; /* Color del texto del botón */
+}
+
+.formulario button:hover {
+    background-color: #45a049; /* Color del botón al pasar el mouse */
+}

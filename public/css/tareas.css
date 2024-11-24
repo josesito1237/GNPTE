@@ -1,0 +1,129 @@
+/* tareas.css */
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom, #1cf5d7, #a8e6cf);
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background: linear-gradient(to bottom, #128e7d, #284e44);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+    color: #fff;
+    font-size: 1.8rem;
+    margin: 0;
+}
+
+main {
+    flex: 1;
+    display: flex;
+    justify-content: center; /* Centra el contenido principal */
+    align-items: center; /* Centra verticalmente */
+    padding: 20px;
+}
+
+.content {
+    display: flex; /* Flexbox para el contenido */
+    align-items: flex-start; /* Alinear al inicio */
+    gap: 20px; /* Espacio entre formulario y tabla */
+}
+
+/* Estilo del formulario */
+form {
+    flex: 0 0 300px; /* Ancho fijo del formulario */
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    text-align: center; /* Centra el texto dentro del formulario */
+}
+
+input[type="text"], input[type="date"], input[type="time"], textarea {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px; /* Tamaño de fuente más pequeño */
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 8px 12px; /* Tamaño del botón ajustado */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px; /* Tamaño de fuente más pequeño */
+    transition: background-color 0.3s, transform 0.2s;
+    margin-top: 10px; /* Espacio entre el botón y otros elementos */
+}
+
+button:hover {
+    background-color: #45a049;
+    transform: translateY(-2px);
+}
+
+.table-container {
+    flex: 1; /* Para que la tabla ocupe espacio disponible */
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    overflow: hidden; /* Elimina el borde de la tabla */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: left;
+}
+
+th {
+    background-color: #128e7d;
+    color: white;
+}
+
+td {
+    background-color: #f9f9f9;
+}
+
+td button {
+    background-color: #d9534f;
+}
+
+td button:hover {
+    background-color: #c9302c;
+}
+
+/* Estilo para el formulario de edición */
+#formEditar {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    margin-top: 20px; /* Espacio entre la tabla y el formulario de edición */
+}
+
+/* Añadir márgenes al contenedor principal */
+.content {
+    margin-top: 20px; /* Espacio superior para el contenedor de formulario y tabla */
+}
+
+/* Espaciado adicional para la tabla */
+.table-container {
+    margin-top: 10px;
+}

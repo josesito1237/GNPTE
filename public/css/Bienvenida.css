@@ -1,0 +1,127 @@
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom, #1cf5d7, #a8e6cf); /* Degradado de #1cf5d7 a verde chicle */
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background: linear-gradient(to bottom, #128e7d, #284e44); /* Color elegante para el navbar */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    width: 100px; /* Aumenta el tamaño del logo */
+    height: auto;
+    margin-right: 10px; /* Espacio entre logo y nombre */
+}
+
+h1.program-name {
+    background: linear-gradient(90deg, #4CAF50, #3498db); /* Degradado entre verde y azul */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; /* Texto transparente para el degradado */
+    font-size: 2.5rem; /* Aumenta el tamaño del nombre */
+    margin: 0;
+}
+
+h1 {
+    color: #fff; /* Color del texto en el navbar */
+    font-size: 1.5rem; /* Tamaño del título */
+    margin: 0;
+}
+
+h1.welcome {
+    text-align: center; /* Centra el título */
+    margin-top: 20px; /* Espacio superior */
+    font-size: 2.5rem; /* Aumenta el tamaño del título principal */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4), 0 0 25px rgba(0, 0, 0, 0.2); /* Efecto 3D */
+}
+
+.frase-bienvenida {
+    font-size: 1.5rem; /* Tamaño de la frase */
+    color: #4CAF50; /* Color verde */
+    margin: 10px 0;
+    text-align: center; /* Centra la frase */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* Efecto 3D */
+}
+
+.button-container {
+    display: flex;
+    justify-content: center; /* Centra los botones */
+    gap: 15px; /* Espaciado entre botones */
+    margin-top: 30px; /* Espacio superior */
+}
+
+.button {
+    background-color: #4CAF50; /* Verde chicle para los botones */
+    color: white; /* Color de texto */
+    padding: 15px 25px; /* Tamaño del botón */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px; /* Tamaño de la fuente */
+    transition: background-color 0.3s, transform 0.2s; /* Suaviza el cambio de color y transformación */
+    width: 200px; /* Ancho fijo para todos los botones */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra para botones */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* Efecto 3D */
+}
+
+.button:hover {
+    background-color: #45a049; /* Un tono más oscuro para el efecto hover */
+    transform: translateY(-2px); /* Levanta ligeramente el botón al pasar el ratón */
+}
+
+.menu {
+    position: relative;
+}
+
+.menu-btn {
+    background-color: #4CAF50; /* Verde chicle */
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 18px; /* Aumenta el tamaño del botón del menú */
+    border-radius: 5px;
+}
+
+.menu-content {
+    display: none; /* Oculto por defecto */
+    position: absolute;
+    right: 0;
+    top: 40px;
+    background: linear-gradient(to bottom, #12588e, #284e44);/* Fondo negro para el menú desplegable */
+    border: 1px solid #ccc; /* Puedes ajustar el color si deseas */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 5px; /* Bordes redondeados */
+    z-index: 1000; /* Asegúrate de que el menú esté encima de otros elementos */
+}
+
+.menu-content a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: #fff; /* Color blanco para las letras del menú */
+    transition: background-color 0.2s;
+}
+
+.menu-content a:hover {
+    background-color: #4CAF50; /* Color de fondo al pasar el ratón */
+    color: #000; /* Cambia el color del texto al negro al pasar el ratón */
+}
+
+/* Cambia el color de los textos del menú al abrirlo */
+.menu.active .menu-content {
+    display: block; /* Muestra el menú al activar */
+}

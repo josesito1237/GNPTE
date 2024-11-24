@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenida Administrador</title>
+    <link rel="stylesheet" href="/css/bienvenida_admin.css">
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="img/logo.png" alt="Logo de Gestión de Notas" class="logo">
+            <h1 class="program-name">GNPTE</h1>                  
+             
+        </div>
+        <div class="menu">
+            <button class="menu-btn">☰</button>
+            <div class="menu-content">
+                <a href="/ver">Ver Información</a>
+                <a href="/cerrar_sesion">Cerrar Sesión</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <h1 class="welcome">Bienvenido al Sistema de Gestión de Notas, Administrador <%= user.nombre %>!</h1>
+        <div class="frase-bienvenida">¡Estamos aquí para ayudarte a gestionar todo!</div>
+        
+        <div class="button-container">
+            <button class="button" onclick="location.href='/ver-usuarios'">Ver Usuarios Registrados</button>
+            <button class="button" onclick="location.href='/proyectoadmin'">Todos los Proyectos</button>
+            <button class="button" onclick="location.href='/tareadmin'">Todas las Tareas</button>
+        </div>
+    </main>
+
+    <script>
+        document.querySelector('.menu-btn').addEventListener('click', function() {
+            const menuContent = document.querySelector('.menu-content');
+            menuContent.style.display = menuContent.style.display === 'block' ? 'none' : 'block';
+        });
+    </script>
+</body>
+</html>

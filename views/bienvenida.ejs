@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenida Estudiante</title>
+    <link rel="stylesheet" href="/css/Bienvenida.css">
+    <style>
+        /* Aquí va el CSS actualizado que proporcioné anteriormente */
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="img/logo.png" alt="Logo de Gestión de Notas" class="logo">
+            <h1 class="program-name">GNPTE</h1>
+        </div>
+        <div class="menu">
+            <button class="menu-btn">☰</button>
+            <div class="menu-content">
+                <a href="/ver">Ver Información</a>
+                <a href="/cerrar_sesion">Cerrar Sesión</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <h1 class="welcome">Bienvenido a Sistema de Gestión de Notas para Proyectos y Tareas de los Estudiantes <%= user.nombre %>!</h1>
+        <div class="frase-bienvenida">¡Estamos aquí para ayudarte en tu camino!</div>
+        
+        <div class="button-container">
+            <button class="button" onclick="location.href='/tareas'">Tareas</button>
+            <button class="button" onclick="location.href='/notas'">Notas</button>
+            <button class="button" onclick="location.href='/proyectos'">Proyectos</button>
+        </div>
+    </main>
+
+    <script>
+        document.querySelector('.menu-btn').addEventListener('click', function() {
+            const menuContent = document.querySelector('.menu-content');
+            menuContent.style.display = menuContent.style.display === 'block' ? 'none' : 'block';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notas</title>
+    <link rel="stylesheet" href="/css/notas.css">
+</head>
+<body>
+    <header>
+        <h1>Mis Notas</h1>
+    </header>
+
+    <main>
+        <div class="contenedor">
+            <div class="formulario-container">
+                <!-- Formulario para agregar notas -->
+                <form id="notaForm" action="/notas/agregar" method="POST" class="formulario">
+                    <input type="text" name="titulo" placeholder="Título de la nota" required>
+                    <textarea name="contenido" placeholder="Contenido de la nota" required></textarea>
+                    <input type="date" name="fecha_entrega" required>
+                    <button type="submit">Agregar Nota</button>
+                </form>
+            </div>
+
+            <div class="tabla-container">
+                <h2>Lista de Notas</h2>
+                <div class="tabla-scroll">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Título</th>
+                                <th>Contenido</th>
+                                <th>Fecha de Entrega</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% notas.forEach(nota => { %>
+                                <tr>
+                                    <td><%= nota.titulo %></td>
+                                    <td><%= nota.contenido %></td>
+                                    <td><%= nota.fecha_entrega ? nota.fecha_entrega.toISOString().split('T')[0] : 'No especificada' %></td>
+                                    <td>
+                                        <!-- Formulario para eliminar nota -->
+                                        <form action="/notas/eliminar/<%= nota.id %>" method="POST" style="display:inline;" onsubmit="return confirm('¿Estás seguro de que deseas eliminar esta nota?');">
+                                            <button type="submit">Eliminar</button>
+                                        </form>
+                                        <!-- Botón para editar nota -->
+                                        <button class="editar-button" 
+                                                data-id="<%= nota.id %>" 
+                                                data-titulo="<%= nota.titulo %>" 
+                                                data-contenido="<%= nota.contenido %>" 
+                                                data-fecha="<%= nota.fecha_entrega ? nota.fecha_entrega.toISOString().split('T')[0] : '' %>"
+                                                onclick="abrirFormularioEditar(this)">Editar
+                                        </button>
+                                    </td>
+                                </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Formulario para editar notas que se oculta inicialmente -->
+        <div id="formEditar" style="display:none;">
+            <h3>Editar Nota</h3>
+            <form id="editarNotaForm" action="" method="POST" class="formulario">
+                <input type="text" name="titulo" placeholder="Título de la nota" required>
+                <textarea name="contenido" placeholder="Contenido de la nota" required></textarea>
+                <input type="date" name="fecha_entrega" required>
+                <button type="submit">Guardar Cambios</button>
+                <button type="button" onclick="document.getElementById('formEditar').style.display='none';">Cancelar</button>
+            </form>
+        </div>
+    </main>
+
+    <!-- Botón para regresar a la página de bienvenida -->
+    <footer>
+        <button onclick="window.location.href='/bienvenida'">Regresar a Bienvenida</button>
+    </footer>
+
+    <script src="/js/notas.js"></script>
+    <script>
+        // Función para abrir el formulario de edición y llenar los datos
+        function abrirFormularioEditar(button) {
+            const formEditar = document.getElementById('formEditar');
+            const id = button.getAttribute('data-id');
+            const titulo = button.getAttribute('data-titulo');
+            const contenido = button.getAttribute('data-contenido');
+            const fecha = button.getAttribute('data-fecha');
+
+            // Llenar el formulario de edición
+            document.querySelector('#editarNotaForm input[name="titulo"]').value = titulo;
+            document.querySelector('#editarNotaForm textarea[name="contenido"]').value = contenido;
+            document.querySelector('#editarNotaForm input[name="fecha_entrega"]').value = fecha;
+
+            // Cambiar la acción del formulario a la ruta de edición
+            document.querySelector('#editarNotaForm').action = '/notas/editar/' + id;
+
+            // Mostrar el formulario de edición
+            formEditar.style.display = 'block';
+
+            // Desplazar la tabla hacia abajo
+            const tablaContainer = document.querySelector('.tabla-container');
+            tablaContainer.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

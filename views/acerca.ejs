@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Acerca del Programa</title>
+    <link rel="stylesheet" href="css/acerca.css"> <!-- Vincula el CSS específico para esta página -->
+</head>
+<body>
+    <div class="logo-container">
+        <img src="img/logo.png" alt="Logo" class="logo"> <!-- Ruta del logo -->
+    </div>
+    
+    <div class="container">
+        <h1>Acerca del Programa</h1>
+        
+        <nav class="section">
+            <h2>Características Principales:</h2>
+            <ul>
+                <li>Registro y autenticación de usuarios.</li>
+                <li>Gestión de usuarios: visualización, actualización y eliminación de usuarios.</li>
+                <li>Creación, visualización y gestión de proyectos con información relevante.</li>
+                <li>Creación, visualización y gestión de tareas, incluyendo fechas de entrega y descripciones.</li>
+                <li>Interfaz amigable utilizando EJS para las vistas.</li>
+               
+            </ul>
+        </nav>
+
+        <nav class="section">
+            <h2>Estructura de la Base de Datos:</h2>
+            <p>La base de datos incluye tablas para:</p>
+            <ul>
+                <li><strong>Usuarios:</strong> Almacena información como nombre, apellidos, email y nivel de acceso.</li>
+                <li><strong>Proyectos:</strong> Contiene títulos, descripciones, fechas y horas de entrega asociadas a los usuarios.</li>
+                <li><strong>Tareas:</strong> Similar a proyectos, incluye detalles sobre las tareas asignadas a los usuarios.</li>
+                <li><strong>Notas:</strong> Este sirve para almacenar pequeños recordatorios del usuario o infromacion personal (no visible para el administrador).</li>
+          
+            </ul>
+        </nav>
+
+        <nav class="section">
+            <h2>Cómo Usar el Programa:</h2>
+            <p>Los usuarios pueden registrarse y luego iniciar sesión para acceder a sus proyectos y tareas. Desde el panel de control, se pueden agregar, editar y eliminar tanto proyectos como tareas.
+                Tambien puedes iniciar secion seleccionando un nivel de acceso, dependiendo el nive puedes tener distintas opciones, en administrador puedes editar informacion y contraseña del usuario o administradores, tambien eliminar las cuentas, puesdes consultar Tareas y Proyectos de todos los usuarios
+            </p>
+        </nav>
+
+        <a href="/">Regresar al Inicio</a>
+    </div>
+</body>
+</html>

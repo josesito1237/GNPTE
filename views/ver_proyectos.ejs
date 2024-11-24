@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ver Proyectos</title>
+    <link rel="stylesheet" href="/css/bienvenida_admin.css">
+    <link rel="stylesheet" href="/css/ver_tareas.css">
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="/img/logo.png" class="logo" alt="Logo">
+            <span class="program-name">Gestión de Proyectos</span>
+        </div>
+        <div class="menu">
+            <button class="menu-btn">☰</button>
+            <div class="menu-content">
+                <a href="/ver">Ver Información</a>
+                <a href="/cerrar_sesion">Cerrar Sesión</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <h1 class="welcome">Todos los Proyectos</h1>
+        <p class="frase-bienvenida">Visualiza aquí todos los proyectos disponibles</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Título</th>
+                    <th>Descripción</th>
+                    <th>Fecha de Entrega</th>
+                    <th>Hora de Entrega</th>
+                    <th>Imagen</th>
+                    <th>User ID</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% proyectos.forEach(proyecto => { %>
+                    <tr>
+                        <td><%= proyecto.id %></td>
+                        <td><%= proyecto.titulo %></td>
+                        <td><%= proyecto.descripcion %></td>
+                        <td><%= proyecto.fecha_entrega %></td>
+                        <td><%= proyecto.hora_entrega %></td>
+                        <td><%= proyecto.imagen %></td>
+                        <td><%= proyecto.user_id %></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+
+        <button class="button" onclick="location.href='/bienvenida_admin'">Regresar a Bienvenida</button>
+    </main>
+    <script>
+        document.querySelector('.menu-btn').addEventListener('click', function() {
+            const menuContent = document.querySelector('.menu-content');
+            menuContent.style.display = menuContent.style.display === 'block' ? 'none' : 'block';
+        });
+    </script>
+</body>
+</html>

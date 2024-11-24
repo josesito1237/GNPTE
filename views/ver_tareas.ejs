@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ver Tareas</title>
+    <link rel="stylesheet" href="/css/bienvenida_admin.css">
+    <link rel="stylesheet" href="/css/ver_tareas.css">
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="img/logo.png" alt="Logo de Gestión de Notas" class="logo">
+            <h1 class="program-name">GNPTE</h1>
+        </div>
+        <div class="menu">
+            <button class="menu-btn">☰</button>
+            <div class="menu-content">
+                <a href="/ver">Ver Información</a>
+                <a href="/cerrar_sesion">Cerrar Sesión</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <h1 class="welcome">Lista de Tareas</h1>
+        <p class="frase-bienvenida">Aquí puedes ver todas las tareas asignadas</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Título</th>
+                    <th>Descripción</th>
+                    <th>Fecha de Entrega</th>
+                    <th>Hora de Entrega</th>
+                    <th>User ID</th>
+                 
+                </tr>
+            </thead>
+            <tbody>
+                <% tareas.forEach(tarea => { %>
+                    <tr>
+                        <td><%= tarea.id %></td>
+                        <td><%= tarea.titulo %></td>
+                        <td><%= tarea.descripcion %></td>
+                        <td><%= tarea.fecha_entrega %></td>
+                        <td><%= tarea.hora_entrega %></td>
+                        <td><%= tarea.user_id %></td>
+                       
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+
+        <button class="button" onclick="location.href='/bienvenida_admin'">Regresar a Bienvenida</button>
+    </main>
+</body>
+<script>
+    document.querySelector('.menu-btn').addEventListener('click', function() {
+        const menuContent = document.querySelector('.menu-content');
+        menuContent.style.display = menuContent.style.display === 'block' ? 'none' : 'block';
+    });
+</script>
+</html>

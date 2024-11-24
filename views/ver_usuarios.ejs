@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ver Usuarios</title>
+    <link rel="stylesheet" href="/css/ver_usuarios.css">
+    <style>
+        .edit-fields {
+            display: none;
+        }
+        .expanded {
+            max-height: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Lista de Usuarios</h1>
+
+    <div class="table-container" id="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Apellido Paterno</th>
+                    <th>Apellido Materno</th>
+                    <th>Email</th>
+                    <th>Nivel de Acceso</th>
+                    <th>Contraseña</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% usuarios.forEach(usuario => { %>
+                    <tr>
+                        <td><%= usuario.id %></td>
+                        <td><%= usuario.nombre %></td>
+                        <td><%= usuario.apellido_p %></td>
+                        <td><%= usuario.apellido_m %></td>
+                        <td><%= usuario.email %></td>
+                        <td><%= usuario.nivel_acceso %></td>
+                        <td><%= usuario.password %></td> <!-- Muestra la contraseña sin censura -->
+                        <td>
+                            <button class="button-edit" onclick="toggleEditFields(<%= usuario.id %>)">Editar</button>
+
+                            <form id="edit-form-<%= usuario.id %>" class="edit-fields" action="/actualizar-usuario/<%= usuario.id %>" method="POST">
+                                <input type="text" name="nombre" value="<%= usuario.nombre %>" placeholder="Nombre" required>
+                                <input type="text" name="apellido_p" value="<%= usuario.apellido_p %>" placeholder="Apellido Paterno" required>
+                                <input type="text" name="apellido_m" value="<%= usuario.apellido_m %>" placeholder="Apellido Materno">
+                                <input type="email" name="email" value="<%= usuario.email %>" placeholder="Email" required>
+                                <select name="nivel_acceso">
+                                    <option value="estudiante" <%= usuario.nivel_acceso === 'estudiante' ? 'selected' : '' %>>Estudiante</option>
+                                    <option value="administrador" <%= usuario.nivel_acceso === 'administrador' ? 'selected' : '' %>>Administrador</option>
+                                </select>
+                                <input type="password" name="password" placeholder="Nueva Contraseña (dejar en blanco si no se desea cambiar)">
+                                <button type="submit" class="button" onclick="return confirm('¿Estás seguro que quieres actualizar la información del usuario?')">Actualizar</button>
+                            </form>
+
+                            <form action="/eliminar-usuario/<%= usuario.id %>" method="POST" style="display:inline;">
+                                <button type="submit" class="button button-delete" onclick="return confirm('¿Estás seguro que quieres eliminar este usuario?')">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+
+    <button class="button" onclick="location.href='/bienvenida_admin'">Regresar a Bienvenida</button>
+
+    <script>
+        function toggleEditFields(userId) {
+            const form = document.getElementById(`edit-form-${userId}`);
+            const tableContainer = document.getElementById("table-container");
+            const isVisible = form.style.display === "block";
+            form.style.display = isVisible ? "none" : "block";
+
+            if (!isVisible) {
+                tableContainer.classList.add("expanded");
+            } else if (document.querySelectorAll(".edit-fields[style*='display: block']").length === 0) {
+                tableContainer.classList.remove("expanded");
+            }
+        }
+        function togglePasswordVisibility(userId) {
+    const passwordElement = document.getElementById(`password-${userId}`);
+    if (passwordElement.type === 'password') {
+        passwordElement.type = 'text'; // Muestra la contraseña
+    } else {
+        passwordElement.type = 'password'; // Oculta la contraseña
+    }
+}
+
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyectos</title>
+    <link rel="stylesheet" href="/css/proyecto.css">
+</head>
+<body>
+    <header>
+        <h1>Mis Proyectos</h1>
+    </header>
+    <main>
+        <div class="contenedor">
+            <div class="formulario-container">
+                <form id="proyectoForm" action="/proyectos/agregar" method="POST" enctype="multipart/form-data" class="formulario">
+                    <input type="text" name="titulo" placeholder="Título del proyecto" required>
+                    <textarea name="descripcion" placeholder="Descripción del proyecto" required></textarea>
+                    <input type="date" name="fecha_entrega" required>
+                    <input type="time" name="hora_entrega" required>
+                    <input type="text" name="grupo" placeholder="Grupo del proyecto" required>
+                    <input type="file" name="imagen" accept="image/*">
+                    <button type="submit">Agregar Proyecto</button>
+                </form>
+            </div>
+            
+            <div class="tabla-container">
+                <h2>Lista de Proyectos</h2>
+                <div class="tabla-scroll">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Título</th>
+                                <th>Descripción</th>
+                                <th>Fecha Entrega</th>
+                                <th>Hora Entrega</th>
+                                <th>Grupo</th>
+                                <th>Imagen</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% proyectos.forEach(proyecto => { %>
+                                <tr>
+                                    <td><%= proyecto.titulo %></td>
+                                    <td><%= proyecto.descripcion %></td>
+                                    <td><%= proyecto.fecha_entrega.toISOString().split('T')[0] %></td>
+                                    <td><%= proyecto.hora_entrega %></td>
+                                    <td><%= proyecto.grupo %></td>
+                                    <td>
+                                        <% if (proyecto.imagen) { %>
+                                            <img src="/images/<%= proyecto.imagen %>" alt="Imagen de <%= proyecto.titulo %>" style="width: 100px; height: auto;">
+                                        <% } %>
+                                    </td>
+                                    <td>
+                                        <form action="/proyectos/eliminar/<%= proyecto.id %>" method="POST" style="display:inline;">
+                                            <button type="submit">Eliminar</button>
+                                        </form>
+                                        <button onclick="mostrarFormularioEditar({
+                                            id: '<%= proyecto.id %>',
+                                            titulo: '<%= proyecto.titulo %>',
+                                            descripcion: '<%= proyecto.descripcion %>',
+                                            fecha_entrega: '<%= proyecto.fecha_entrega.toISOString().split('T')[0] %>',
+                                            hora_entrega: '<%= proyecto.hora_entrega %>',
+                                            grupo: '<%= proyecto.grupo %>'
+                                        })">Editar</button>
+                                    </td>
+                                </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id="formEditar" style="display:none;">
+            <h3>Editar Proyecto</h3>
+            <form action="/proyectos/editar/<%= proyecto.id_proyectos %>" method="POST" enctype="multipart/form-data">
+                <input type="text" name="titulo" value="<%= proyecto.titulo %>" required>
+                <textarea name="descripcion" required><%= proyecto.descripcion %></textarea>
+                <input type="date" name="fecha_entrega" value="<%= proyecto.fecha_entrega %>" required>
+                <input type="time" name="hora_entrega" value="<%= proyecto.hora_entrega %>" required>
+                <input type="text" name="grupo" value="<%= proyecto.grupo %>">
+                <input type="file" name="imagen">
+                <button type="submit">Actualizar Proyecto</button>
+            </form>
+            
+        </div>
+    </main>
+
+    <script>
+        function mostrarFormularioEditar(proyecto) {
+            document.getElementById('formEditar').style.display = 'block';
+            document.getElementById('editId').value = proyecto.id;
+            document.getElementById('editTitulo').value = proyecto.titulo;
+            document.getElementById('editDescripcion').value = proyecto.descripcion;
+            document.getElementById('editFecha').value = proyecto.fecha_entrega;
+            document.getElementById('editHora').value = proyecto.hora_entrega;
+            document.getElementById('editGrupo').value = proyecto.grupo;
+            document.getElementById('formEdit').action = '/proyectos/editar/' + proyecto.id;
+        }
+    </script>
+</body>
+</html>

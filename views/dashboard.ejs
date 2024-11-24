@@ -1,0 +1,6 @@
+<h2>Bienvenido al Dashboard</h2>
+<p>¡Hola, <%= user.nombre %>!</p>
+<% if (user.nivel_acceso === 'administrador') { %>
+    <a href="/bienvenida_admin">Panel de Administrador</a>
+<% } %>
+<a href="/logout">Cerrar Sesión</a>

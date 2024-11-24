@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tareas</title>
+    <link rel="stylesheet" href="/css/tareas.css">
+</head>
+<body>
+    <header>
+        <h1>Mis Tareas</h1>
+    </header>
+
+    <main>
+        <!-- Formulario para agregar tareas -->
+        <form id="tareaForm" action="/tareas/agregar" method="POST">
+            <input type="text" name="titulo" placeholder="Título de la tarea" required>
+            <textarea name="descripcion" placeholder="Descripción de la tarea" required></textarea>
+            <input type="date" name="fecha_entrega" required>
+            <input type="time" name="hora_entrega" required>
+            <button type="submit">Agregar Tarea</button>
+        </form>
+
+        <!-- Contenedor de la tabla -->
+        <h2>Lista de Tareas</h2>
+        <div class="tabla-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Título</th>
+                        <th>Descripción</th>
+                        <th>Fecha Entrega</th>
+                        <th>Hora Entrega</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% tareas.forEach(tarea => { %>
+                        <tr>
+                            <td><%= tarea.titulo %></td>
+                            <td><%= tarea.descripcion %></td>
+                            <td><%= tarea.fecha_entrega.toISOString().split('T')[0] %></td>
+                            <td><%= tarea.hora_entrega %></td>
+                            <td>
+                                <!-- Botón de eliminar -->
+                                <form action="/tareas/eliminar/<%= tarea.id_tareas %>" method="POST" style="display:inline;">
+                                    <button type="submit" onclick="return confirm('¿Estás seguro de eliminar esta tarea?')">Eliminar</button>
+                                </form>
+                                <!-- Botón de editar -->
+                                <button 
+                                    class="editar-button" 
+                                    data-id="<%= tarea.id_tareas %>" 
+                                    data-titulo="<%= tarea.titulo %>" 
+                                    data-descripcion="<%= tarea.descripcion %>" 
+                                    data-fecha="<%= tarea.fecha_entrega.toISOString().split('T')[0] %>" 
+                                    data-hora="<%= tarea.hora_entrega %>">
+                                    Editar
+                                </button>
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Formulario para editar tareas -->
+        <div id="formEditar" style="display:none;">
+            <h3>Editar Tarea</h3>
+            <form id="editarTareaForm" method="POST">
+                <input type="text" name="titulo" placeholder="Título de la tarea" required>
+                <textarea name="descripcion" placeholder="Descripción de la tarea" required></textarea>
+                <input type="date" name="fecha_entrega" required>
+                <input type="time" name="hora_entrega" required>
+                <button type="submit">Guardar Cambios</button>
+                <button type="button" onclick="document.getElementById('formEditar').style.display='none';">Cancelar</button>
+            </form>
+        </div>
+    </main>
+
+    <script>
+        // Manejo del botón de edición
+        document.querySelectorAll('.editar-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const id = this.dataset.id;
+                const titulo = this.dataset.titulo;
+                const descripcion = this.dataset.descripcion;
+                const fecha = this.dataset.fecha;
+                const hora = this.dataset.hora;
+
+                // Mostrar el formulario de edición
+                const formEditar = document.getElementById('formEditar');
+                formEditar.style.display = 'block';
+
+                // Actualizar el formulario con los datos de la tarea
+                const editarForm = document.getElementById('editarTareaForm');
+                editarForm.action = `/tareas/editar/${id}`;
+                editarForm.titulo.value = titulo;
+                editarForm.descripcion.value = descripcion;
+                editarForm.fecha_entrega.value = fecha;
+                editarForm.hora_entrega.value = hora;
+            });
+        });
+    </script>
+</body>
+</html>
