@@ -51,53 +51,64 @@ router.post('/agregar', verificarAutenticacion, upload.single('imagen'), (req, r
     });
 });
 
-
-// Ruta para editar proyectos
-router.post('/editar/:id', verificarAutenticacion, upload.single('imagen'), (req, res) => {
-    const { id } = req.params;
+// Ruta para editar un proyecto
+router.post('/editar/:id_proyecto', verificarAutenticacion, upload.single('imagen'), (req, res) => {
+    const { id_proyecto } = req.params;
     const { titulo, descripcion, fecha_entrega, hora_entrega, grupo } = req.body;
     const imagen = req.file ? req.file.filename : null;
-
-    // Lógica de actualización en la base de datos
-    const query = imagen
-        ? 'UPDATE proyectos SET titulo = ?, descripcion = ?, fecha_entrega = ?, hora_entrega = ?, grupo = ?, imagen = ? WHERE id_proyectos = ?'
-        : 'UPDATE proyectos SET titulo = ?, descripcion = ?, fecha_entrega = ?, hora_entrega = ?, grupo = ? WHERE id_proyectos = ?';
-
-    const params = imagen
-        ? [titulo, descripcion, fecha_entrega, hora_entrega, grupo, imagen, id]
-        : [titulo, descripcion, fecha_entrega, hora_entrega, grupo, id];
-
-    db.query(query, params, (error) => {
-        if (error) {
-            console.error('Error al actualizar el proyecto:', error);
-            return res.status(500).send('Error al actualizar el proyecto.');
-        }
-        res.redirect('/proyectos'); // Redirige después de actualizar
-    });
-});
-
-// Ruta para eliminar un proyecto
-router.post('/eliminar/:id', verificarAutenticacion, (req, res) => {
-    const { id } = req.params;
     const user_id = req.session.user.id;
 
-    const verificarPropietario = 'SELECT * FROM proyectos WHERE id_proyectos = ? AND user_id = ?';
-    db.query(verificarPropietario, [id, user_id], (error, resultados) => {
+    // Verificar que el proyecto pertenece al usuario
+    const verificarPropietario = 'SELECT * FROM proyectos WHERE id_proyecto = ? AND user_id = ?';
+    db.query(verificarPropietario, [id_proyecto, user_id], (error, resultados) => {
         if (error || resultados.length === 0) {
-            console.error('Error: Proyecto no encontrado o acceso denegado.');
-            return res.status(403).send('No tienes permiso para eliminar este proyecto.');
+            console.error('Acceso denegado o proyecto no encontrado:', error);
+            return res.status(403).send('Error: No tienes permiso para editar este proyecto.');
         }
 
-        const query = 'DELETE FROM proyectos WHERE id_proyectos = ?';
-        db.query(query, [id], (error) => {
+        // Actualizar proyecto si el usuario es propietario
+        let query, params;
+        if (imagen) {
+            query = 'UPDATE proyectos SET titulo = ?, descripcion = ?, fecha_entrega = ?, hora_entrega = ?, grupo = ?, imagen = ? WHERE id_proyecto = ?';
+            params = [titulo, descripcion, fecha_entrega, hora_entrega, grupo, imagen, id_proyecto];
+        } else {
+            query = 'UPDATE proyectos SET titulo = ?, descripcion = ?, fecha_entrega = ?, hora_entrega = ?, grupo = ? WHERE id_proyecto = ?';
+            params = [titulo, descripcion, fecha_entrega, hora_entrega, grupo, id_proyecto];
+        }
+
+        db.query(query, params, (error) => {
             if (error) {
-                console.error('Error al eliminar el proyecto:', error);
-                return res.status(500).send('Error al eliminar el proyecto.');
+                console.error('Error al actualizar el proyecto:', error);
+                return res.status(500).send('Error al actualizar el proyecto');
             }
             res.redirect('/proyectos');
         });
     });
 });
 
+// Ruta para eliminar un proyecto
+router.post('/eliminar/:id_proyecto', verificarAutenticacion, (req, res) => {
+    const { id_proyecto } = req.params;
+    const user_id = req.session.user.id;
+
+    // Verificar que el proyecto pertenece al usuario
+    const verificarPropietario = 'SELECT * FROM proyectos WHERE id_proyecto = ? AND user_id = ?';
+    db.query(verificarPropietario, [id_proyecto, user_id], (error, resultados) => {
+        if (error || resultados.length === 0) {
+            console.error('Acceso denegado o proyecto no encontrado:', error);
+            return res.status(403).send('Error: No tienes permiso para eliminar este proyecto.');
+        }
+
+        // Eliminar proyecto si el usuario es propietario
+        const query = 'DELETE FROM proyectos WHERE id_proyecto = ?';
+        db.query(query, [id_proyecto], (error) => {
+            if (error) {
+                console.error('Error al eliminar el proyecto:', error);
+                return res.status(500).send('Error al eliminar el proyecto');
+            }
+            res.redirect('/proyectos');
+        });
+    });
+});
 
 module.exports = router;
